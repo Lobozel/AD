@@ -13,13 +13,15 @@ import java.io.ObjectOutputStream;
  */
 
 public class CrearYEscribirFichero {
-
+	
 	public static void main(String[] args) {
 		
 		File file = new File("C:/AD/departamentos.dat");
-		Departamentos dep1 = new Departamentos(1,"Tipo1","Departamento1","Domicilio1","Ciudad1",0001,"Provincia1","Pais1");
-		Departamentos dep2 = new Departamentos(2,"Tipo2","Departamento2","Domicilio2","Ciudad2",0002,"Provincia2","Pais2");
-		Departamentos dep3 = new Departamentos(3,"Tipo3","Departamento3","Domicilio3","Ciudad3",0003,"Provincia3","Pais3");
+		Departamentos[] deps;
+		deps = new Departamentos[3];
+		deps[0] = new Departamentos(1,"Tipo1","Departamento1","Domicilio1","Ciudad1",0001,"Provincia1","Pais1");
+		deps[1] = new Departamentos(2,"Tipo2","Departamento2","Domicilio2","Ciudad2",0002,"Provincia2","Pais2");
+		deps[2] = new Departamentos(3,"Tipo3","Departamento3","Domicilio3","Ciudad3",0003,"Provincia3","Pais3");	
 		ObjectOutputStream oos;
 		
 		//Si existe el ficheor primero lo elimino y luego lo creo, para crear uno vacio
@@ -33,15 +35,17 @@ public class CrearYEscribirFichero {
 		
 		
 		try {
-			//Uso MiObjectOutputStream para serializar el fichero y escribir en él.
-			//El parametro true me permite que al escribir de nuevo no sobreescriba lo escrito. 
-			oos = new MiObjectOutputStream(new FileOutputStream(file, true));
 			
-	        oos.writeObject(dep1);
-	        oos.writeObject(dep2);
-	        oos.writeObject(dep3);
+            oos = new ObjectOutputStream(new FileOutputStream(file));
+            oos.writeObject(deps[0]);
+            
+            oos = new MiObjectOutputStream(new FileOutputStream(file, true));
+            	        
+            for(int i=1;i<deps.length;i++){
+            	oos.writeObject(deps[i]);
+            }
 	        
-	        System.out.println("Fichero creado correctamente.");
+	        System.out.println("Fichero serializable creado correctamente.\n");
 		} catch (FileNotFoundException e) {
 			System.out.println("No se ha encontrado el fichero. Compruebe si existe en C:'\\AD'\\ o vuelva a ejecutar este programa.");
 		} catch (IOException e) {
@@ -49,7 +53,11 @@ public class CrearYEscribirFichero {
 					+ "\nCompruebe los permisos del archivo o borrelo y vuelva a ejecutar este programa.");			
 		}
 		
-
+		LeerFicheroSerializado.LeerFichero(file);
+		CrearXMLConDOM.crearXML(deps);
+		
 	}
+	
+	
 
 }

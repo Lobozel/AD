@@ -108,7 +108,7 @@ public class Departamentos implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Departamentos: \nID = " + id + "\n Tipo = " + tipo + "\n Nombre = " + nombre + "\n Domicilio = "
+		return "Departamentos: \n ID = " + id + "\n Tipo = " + tipo + "\n Nombre = " + nombre + "\n Domicilio = "
 				+ domicilio + "\n Ciudad = " + ciudad +  "\n CP = " + cp +"\n Provincia = " + provincia + "\n Pais = " + pais;
 	}
 	
